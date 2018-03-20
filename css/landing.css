@@ -1,0 +1,40 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16-Mar-2018, 11:35:46 AM
+    Author     : kyle
+
+
+        COLORS
+    ======================================
+    Main Blue: #00204A
+    Secondary Blue: #005792
+    Light Highlight Blue: #00BBF0
+    White-blue: #D9FAFF
+*/
+
+.highlighted-div{
+    background-color: #00204A;
+    color: #D9FAFF;
+}
+
+.split{
+    margin: 0px;
+    padding: 20px;
+    margin-bottom: 20px;
+    
+}
+
+.card{
+    width: 100%;
+}
+
+.jumbotron{
+    background-color: #00204A;
+    color: #D9FAFF;
+
+}
+

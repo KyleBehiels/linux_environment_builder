@@ -1,0 +1,81 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16-Mar-2018, 11:33:22 AM
+    Author     : kyle
+
+
+    COLORS
+======================================
+Main Blue: #00204A
+Secondary Blue: #005792
+Light Highlight Blue: #00BBF0
+White-blue: #D9FAFF
+*/
+
+
+.container{
+    background-color: white;
+    min-height: 100vh;
+}
+
+img{
+    max-width: 100%;
+}
+
+a{
+    color: #00BBF0;
+}
+a:hover{
+    color: #D9FAFF;
+}
+
+/* Button styles */
+.btn-primary{
+    background-color: #00204A;
+    color:#D9FAFF;
+    border-color: #00BBF0;
+    box-shadow: none;
+}
+.btn-primary:hover{
+    background-color: #D9FAFF;
+    color: #00204A;
+    border-color: #857671;
+    box-shadow: none;
+
+}
+/* Border styles */
+.border-right{
+    border-right: 1px solid #000;
+}
+.border-left{
+    border-left: 1px solid #000;
+}
+
+/* Card styles */
+
+.card-default{
+    margin: 20px;
+}
+.card-default > .card-header{
+    background-color: #00204A;
+    color:#D9FAFF;
+}
+
+/* Navbar specific styles*/
+.navbar{
+    
+}
+
+/* Responsive specific styles*/
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .hide_on_mobile{
+        display: none;
+    }
+}
+
