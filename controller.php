@@ -24,6 +24,9 @@ else{
     if($_POST['page'] == 'environments'){
         include('./Pages/environments.php');
     }
+    if($_POST['page'] == 'profile'){
+        include('./Pages/profile.php');
+    }
 
 }
 
