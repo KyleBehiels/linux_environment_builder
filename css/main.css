@@ -69,6 +69,12 @@ a:hover{
 .navbar{
     
 }
+.hidden{
+    display: none;
+}
+.modal_window{
+    position: fixed
+}
 
 /* Responsive specific styles*/
 
