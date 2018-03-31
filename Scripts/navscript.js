@@ -12,3 +12,4 @@ function nav_post(value){
     });
     $('#'+value).toggleClass("active", true);
 }
+

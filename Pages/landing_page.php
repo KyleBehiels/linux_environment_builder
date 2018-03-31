@@ -24,7 +24,6 @@
         <div class="container">
             <?php include("./Components/navigation.php") ?>
             <div class="jumbotron text-center">
-                <p><?php echo $_POST['page'] ?></p>
                 <h1>Welcome to Linux Environment Builder!</h1>
                 <p>Linux environment builder is a web application similar to <a href="https://ninite.com">Ninite for windows</a> that allows users to select a list of applications from a GUI and download a single install script for all of them.</p>
                 <button class="btn btn-primary">Get Started</button>

@@ -5,3 +5,13 @@
  */
 
 
+$(document).ready(()=>{
+   $('#login_btn').click(()=>{
+       $('#login_form').toggleClass('hidden', false);
+       $('#signup_form').toggleClass('hidden', true);
+   });
+   $('#signup_btn').click(()=>{
+       $('#signup_form').toggleClass('hidden', false);
+       $('#login_form').toggleClass('hidden', true);
+   });
+});
