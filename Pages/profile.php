@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -18,15 +18,15 @@
         <script src="./Scripts/profile.js"></script>
     </head>
     <body>
-        
+
         <div class="container">
             <?php include("./Components/navigation.php") ?>
             <h1 class="text-center">Profile Page</h1>
             <hr>
-            <?php 
+            <?php
                 if(!isset($_COOKIE['USER_ID_COOK']) || $_COOKIE['USER_ID_COOK'] == "failed"){
-                    echo 
-                    ' 
+                    echo
+                    '
                         <div class="col-sm-12 text-center">
                             <div class="btn-group">
                                 <button id="login_btn" class="btn btn-lg btn-primary">Log in</button>
@@ -55,10 +55,24 @@
                             </form>
                         </div>
                         ';
-                    
+                }
+                else{
+                    $my_environments = list_environments();
+                    echo '
+                     <div class="row title_row">
+                        <div class="col-sm-12 text-center">
+                             <h1>'.$_COOKIE["USERNAME_COOK"].'</h1>
+                        </div>
+                        <hr>
+                        <div class="col-sm-12 text-center">
+                            <h3>My Environments</h3>
+                        </div>
+                    </div>
+
+                    '
+                    ;
                 }
             ?>
-            
         </div>
     </body>
 </html>

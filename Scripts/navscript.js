@@ -3,6 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+$('logout_btn').on('click', ()=>{
+    location.reload();
+});
 
 function nav_post(value){
     $('#navigation_form_input').attr('value', value);

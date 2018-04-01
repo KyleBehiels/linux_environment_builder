@@ -2,7 +2,7 @@
 
 header('Access-Control-Allow-Origin: *');
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -14,7 +14,7 @@ require("./model.php");
 //Handle AUTH related posts
 
 if(isset($_POST['AUTH_TYPE'])){
-    
+
     if(!empty($_POST['AUTH_TYPE']))
     {
     if($_POST['AUTH_TYPE'] == 'LOGIN'){
@@ -22,9 +22,14 @@ if(isset($_POST['AUTH_TYPE'])){
     }
     if($_POST['AUTH_TYPE'] == 'SIGNUP'){
         signup();
+
     }
 }
-    
+
+}
+
+function list_environments(){
+    $envArray = get_env_array($_COOKIE['USERNAME_COOK']);
 }
 
 
@@ -55,7 +60,9 @@ if($_POST['page'] == 'profile'){
 }
 if($_POST['page'] == 'logout'){
     setcookie('USER_ID_COOK', null);
+    setcookie('USERNAME_COOK', null);
     include('./Pages/landing_page.php');
+    header("Refresh:0");
     exit();
 }
 

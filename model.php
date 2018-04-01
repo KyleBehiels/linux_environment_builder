@@ -6,7 +6,7 @@ $password = "kbehielsw7424";
 
 
 $conn = mysqli_connect($server_name, $username, $password, "COMP3540_kbehiels");
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -80,12 +80,17 @@ function get_password($username)
         return -1;
 }
 
+function get_env_array($username){
+    
+}
+
 function signup(){
     if($_POST['PASSWORD'] == $_POST['PASS_CONF']){
-        insert_new_user($_POST['USERNAME'], $_POST['PASSWORD'], $_POST['EMAIL']);
+        echo insert_new_user($_POST['USERNAME'], $_POST['PASSWORD'], $_POST['EMAIL']);
 
-        // By not adding a timeout, cookie will destruct on browser close  
+        // By not adding a timeout, cookie will destruct on browser close
         setcookie("USER_ID_COOK", get_userid($_POST['USERNAME']));
+        setcookie("USERNAME_COOK", $_POST['USERNAME']);
     }
     else{
         setcookie("USER_ID_COOK", 'failed');
@@ -95,16 +100,16 @@ function login(){
     if(does_exist($_POST['USERNAME'])){
         if(get_password($_POST['USERNAME']) == $_POST['PASSWORD']){
             setcookie("USER_ID_COOK", get_userid($_POST['USERNAME']));
+            setcookie("USERNAME_COOK", $_POST['USERNAME']);
         }
         else{
             setcookie("USER_ID_COOK", 'failed');
         }
     }
     else{
-        setcookie("USER_ID_COOK", 'failed');    
+        setcookie("USER_ID_COOK", 'failed');
     }
 }
 
 
 ?>
-
