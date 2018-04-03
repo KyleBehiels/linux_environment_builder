@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"> <head>
+  <script type="text/javascript" src="./Scripts/main.js">
+
+  </script>
+</head> </html>
+
 <?php
 
 header('Access-Control-Allow-Origin: *');
@@ -28,8 +35,47 @@ if(isset($_POST['AUTH_TYPE'])){
 
 }
 
-function list_environments(){
-    $envArray = get_env_array($_COOKIE['USERNAME_COOK']);
+function list_environments($username){
+    $envArray = get_env_array($username);
+    $returnable = '';
+    $i = 0;
+    foreach ($envArray as $env) {
+
+      $packages = '';
+
+      foreach ($env[3] as $package) {
+        $packages = $packages . '<tr><td>'.$package[1].'</td><td  class="hide_on_mobile">'.$package[3].'</td></tr>';
+      }
+
+      $returnable = $returnable .
+      '
+      <div class="col-sm-12 custom_environment">
+        <h2 class="text-center">' . $env[1] . '</h2>
+        <hr>
+        <h3 class="text-center">Packages</h3>
+        <div class="text-center">
+          <table class="table">
+            <tr>
+              <th align="center">Name</th>
+              <th class="hide_on_mobile" align="center">Description</th>
+            </tr>
+            <tr>
+              '. $packages .'
+            </tr>
+          </table>
+        </div>
+        <hr>
+        <div class="col-sm-12 text-center">
+          <button onclick="show_script(environment_'. $env[0] .')" class="btn btn-primary" type="button" name="button">Get Bash Script</button>
+        </div>
+        <hr>
+        <div id="environment_'. $env[0] .'" class="hidden text-center">
+          <p class="code">'. $env[4] .'</p>
+        </div>
+      </div>
+      ';
+    }
+    return $returnable;
 }
 
 

@@ -80,8 +80,61 @@ function get_password($username)
         return -1;
 }
 
+function fetch_all($sql_result, $result_type = MYSQL_BOTH){
+  $rows = array();
+        while ($row = mysql_fetch_array($sql_result, $result_type))
+        {
+            $rows[] = $row;
+        }
+        return $rows;
+}
+
 function get_env_array($username){
-    
+  global $conn;
+
+  $user_cond = '';
+
+  if ($username !== "ALL") {
+    $user_id = get_userid($username);
+    $user_cond = "WHERE CREATOR_ID = ".$user_id.";";
+  }
+
+  $sql = "SELECT ENV_ID, ENV_NAME, ENV_DESCRIPTION FROM ENVIRONMENT ".$user_cond;
+  $result = mysqli_query($conn, $sql);
+  $env_array = [];
+  $i = 0;
+  while ($row = mysqli_fetch_row($result)) {
+    $env_array[$i++] = $row;
+  }
+  $i = 0;
+
+  foreach ($env_array as $env) {
+    $sql = "SELECT P.PACKAGE_ID, P.PACKAGE_NAME, P.PACKAGE_COMMAND, P.PACKAGE_DESCRIPTION
+  	          FROM PACKAGE P JOIN PACKAGE_ENV_RELATION PE
+  	          ON (P.PACKAGE_ID = PE.PACKAGE_ID)
+  	          WHERE PE.ENV_ID = " . $env[0];
+    $result = mysqli_query($conn, $sql);
+    $package_arr = [];
+    $x = 0;
+    $install_command = 'sudo apt-get install';
+    while ($row = mysqli_fetch_row($result)) {
+      $package_arr[$x] = $row;
+      $p_command = explode(",",$row[2]);
+      if($p_command[1] == "pm"){
+        // Uses package manager
+        $install_command = $install_command . " " . $p_command[0];
+      }
+      $x++;
+    }
+    $env_array[$i][4] = $install_command;
+    $env_array[$i++][3] = $package_arr;
+  }
+
+  // $env_array at 0 = id 1 = name 2 = description 3 = package_list_array 4 = install command
+  // $package_arr at 0 = PACKAGE_ID 1 = PACKAGE_NAME 2 = PACKAGE_COMMAND 3 = PACKAGE_DESCRIPTION
+
+  return $env_array;
+
 }
 
 function signup(){

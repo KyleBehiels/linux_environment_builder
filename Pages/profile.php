@@ -57,16 +57,15 @@
                         ';
                 }
                 else{
-                    $my_environments = list_environments();
+                    $my_environments = list_environments($_COOKIE['USERNAME_COOK']);
                     echo '
                      <div class="row title_row">
-                        <div class="col-sm-12 text-center">
-                             <h1>'.$_COOKIE["USERNAME_COOK"].'</h1>
+                          <div class="col-sm-12 text-center">
+                            <h1>'.$_COOKIE["USERNAME_COOK"].' | Environments </h1>
+                            <button class="btn btn-primary"> Create New </button>
                         </div>
                         <hr>
-                        <div class="col-sm-12 text-center">
-                            <h3>My Environments</h3>
-                        </div>
+                        '. $my_environments .'
                     </div>
 
                     '

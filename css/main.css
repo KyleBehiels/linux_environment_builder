@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 16-Mar-2018, 11:33:22 AM
     Author     : kyle
 
@@ -17,9 +17,24 @@ White-blue: #D9FAFF
 */
 
 
+/* This will be used whenever an environment is displayed */
+.custom_environment{
+  border: 1px solid #00204A;
+  padding: 15px;
+  margin: 10px;
+}
+
+
 .container{
     background-color: white;
     min-height: 100vh;
+}
+
+.code{
+  color: #00FF00;
+  background-color: black;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 img{
@@ -67,7 +82,7 @@ a:hover{
 
 /* Navbar specific styles*/
 .navbar{
-    
+
 }
 .hidden{
     display: none;
@@ -84,4 +99,3 @@ a:hover{
         display: none;
     }
 }
-
