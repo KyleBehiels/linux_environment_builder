@@ -4,8 +4,9 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /*
-    Created on : 28-Mar-2018, 9:39:18 AM
+    Created on : 01-Apr-2018, 19:13:40 PM
     Author     : kyle
+
 
     COLORS
 ======================================
@@ -13,13 +14,15 @@ Main Blue: #00204A
 Secondary Blue: #005792
 Light Highlight Blue: #00BBF0
 White-blue: #D9FAFF
-
-
 */
 
-.profile_form{
-  border: 1px solid #00204A;
-  border-radius: 10px;
-  padding: 30px;
-  margin: 10px;
+
+/* This will be used whenever an environment is displayed */
+
+.navbar{
+  background-color: #00204A!important;
+  margin-bottom: 15px;
+}
+a{
+  color: #D9FAFF!important;
 }

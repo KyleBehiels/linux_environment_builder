@@ -26,7 +26,7 @@
             <div class="jumbotron text-center">
                 <h1>Welcome to Linux Environment Builder<?php echo isset($_COOKIE['USERNAME_COOK']) ? " ".$_COOKIE['USERNAME_COOK'] : "" ?>!</h1>
                 <p>Linux environment builder is a web application similar to <a href="https://ninite.com">Ninite for windows</a> that allows users to select a list of applications from a GUI and download a single install script for all of them.</p>
-                <button class="btn btn-primary">Get Started</button>
+                <button onclick="(nav_post('profile'))" class="btn btn-primary">Get Started</button>
             </div>
 
             <hr>

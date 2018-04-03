@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <hr>
-                        <div id="login_form">
+                        <div class="profile_form" id="login_form">
                             <form action="./controller.php" method="post">
                                 <input type="hidden" name="AUTH_TYPE" value="LOGIN">
                                 <input class="form-control" name="USERNAME" type="text" placeholder="Username"><br/>
@@ -42,7 +42,7 @@
                                 <input class="form-control btn btn-primary" type="submit" value="Login">
                             </form>
                         </div>
-                        <div class="hidden" id="signup_form">
+                        <div class="hidden profile_form" id="signup_form">
                             <form action="./controller.php" method="post">
                                 <div class="form-group">
                                     <input type="hidden" name="AUTH_TYPE" value="SIGNUP">

@@ -1,13 +1,14 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
 ?>
-<script src="./Scripts/navscript.js"></script> 
+<script src="./Scripts/navscript.js"></script>
+<link rel="stylesheet" href="./css/navigation.css">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">L.E.B.</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,5 +40,3 @@
 <form id="navigation_form" method="POST" action="./controller.php">
     <input id="navigation_form_input" type="hidden" name="page" value="">
 </form>
-
-    
