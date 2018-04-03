@@ -58,11 +58,23 @@
                 }
                 else{
                     $my_environments = list_environments($_COOKIE['USERNAME_COOK']);
+                    $all_packages = list_packages();
                     echo '
                      <div class="row title_row">
                           <div class="col-sm-12 text-center">
                             <h1>'.$_COOKIE["USERNAME_COOK"].' | Environments </h1>
-                            <button class="btn btn-primary"> Create New </button>
+                            <button onclick="show_new_env_form()" class="btn btn-primary"> Create New </button>
+                            <div id="new_env_form" class="hidden add_env_form text-center">
+                              <div class="">
+                                <h3 class="text-center">New Environment</h3>
+                                <hr>
+                              </div>
+                              <div class="">
+                                <h4>Packages</h4>
+                                <hr>
+                                ' . $all_packages . '
+                              </div>
+                            </div>
                         </div>
                         <hr>
                         '. $my_environments .'

@@ -12,6 +12,33 @@ $conn = mysqli_connect($server_name, $username, $password, "COMP3540_kbehiels");
  * and open the template in the editor.
  */
 
+ function post_new_env($package_ids, $env_title, $env_description){
+   global $conn;
+
+   $sql_env = "INSERT INTO ENVIRONMENT(ENV_NAME, CREATOR_ID, ENV_DESCRIPTION) VALUES(' $env_title ' , '$_COOKIE[USER_ID_COOK]' ,'$env_description')";
+
+   mysqli_query($conn, $sql_env);
+
+   $current_env = get_env_by_name($env_title);
+   $i = 0;
+   foreach ($package_ids as $pid){
+     $sql_relation = "INSERT INTO PACKAGE_ENV_RELATION(ENV_ID, PACKAGE_ID) VALUES($current_env, $pid)";
+     mysqli_query($conn, $sql_relation);
+     $i++;
+   }
+
+
+ }
+function get_env_by_name($env_name){
+  global $conn;
+
+  $sql = "SELECT ENV_ID FROM ENVIRONMENT WHERE ENV_NAME = ".$env_name;
+
+  $result = mysqli_query($conn, $sql);
+
+  return mysqli_fetch_row($result)[0];
+}
+
 // This function is mostly borrowed from w8_seminar with few changes.
 function insert_new_user($username, $password, $email)
 {
@@ -136,6 +163,29 @@ function get_env_array($username){
   return $env_array;
 
 }
+
+
+function get_all_packages(){
+
+  global $conn;
+
+  $sql = "SELECT * FROM PACKAGE";
+  $result = mysqli_query($conn, $sql);
+
+  $package_array = [];
+  $i = 0;
+  while ($row = mysqli_fetch_row($result)) {
+    $package_array[$i][0] = $row[0]; // Package ID
+    $package_array[$i][1] = $row[1]; // Package Name
+    $package_array[$i][2] = $row[2]; // Package Command
+    $package_array[$i][3] = $row[3]; // Package Description
+    $i++;
+  }
+
+  return $package_array;
+
+}
+
 
 function signup(){
     if($_POST['PASSWORD'] == $_POST['PASS_CONF']){

@@ -21,19 +21,24 @@ require("./model.php");
 //Handle AUTH related posts
 
 if(isset($_POST['AUTH_TYPE'])){
-
     if(!empty($_POST['AUTH_TYPE']))
     {
-    if($_POST['AUTH_TYPE'] == 'LOGIN'){
-        login();
-    }
-    if($_POST['AUTH_TYPE'] == 'SIGNUP'){
-        signup();
-
+      if($_POST['AUTH_TYPE'] == 'LOGIN'){
+          login();
+      }
+      if($_POST['AUTH_TYPE'] == 'SIGNUP'){
+          signup();
+      }
     }
 }
 
+
+
+if(isset($_POST['package_select']) && isset($POST['env_title']) && isset($_POST['env_description'])){
+  echo "sweet";
+  post_new_env($_POST['package_select'], $_POST['env_title'], $_POST['env_description']);
 }
+
 
 function list_environments($username){
     $envArray = get_env_array($username);
@@ -78,6 +83,31 @@ function list_environments($username){
     return $returnable;
 }
 
+function list_packages(){
+  $pack_array = get_all_packages();
+  $returnable = '<form id="package_form" class="form" action="controller.php" method="post">
+                    <div class="form-group">
+                      <label for="env_title">Environment Title</label>
+                      <input name="env_title" maxlength="45" class="form-control" type="text" required><br>
+                      <label for="env_description" maxlength="150">Environment Description</label>
+                      <input name="env_description" class="form-control" type="text" required><br>
+                      <select multiple name="package_select[]" class="form-control">
+                      ';
+  $i = 0;
+  foreach ($pack_array as $pack) {
+    $returnable = $returnable . '<option value="'. $pack_array[$i][0] .'">' . $pack_array[$i][1] . '</option>';
+    $i++;
+  }
+  $returnable = $returnable . '</select></div>
+  <div class="row">
+    <div class="col-sm-12">
+      <input type="submit" class="btn btn-success" type="button" name="button">
+      <button onclick="show_new_env_form()" class="btn btn-danger" type="button" name="button">Cancel</button>
+    </div>
+  </div>
+  </form>';
+  return $returnable;
+}
 
 // Include the landing page by default
 
