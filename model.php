@@ -19,7 +19,7 @@ $conn = mysqli_connect($server_name, $username, $password, "COMP3540_kbehiels");
 
    mysqli_query($conn, $sql_env);
 
-   $current_env = get_env_by_name($env_title);
+   $current_env = get_next_env_id();
    $i = 0;
    foreach ($package_ids as $pid){
      $sql_relation = "INSERT INTO PACKAGE_ENV_RELATION(ENV_ID, PACKAGE_ID) VALUES($current_env, $pid)";
@@ -29,14 +29,22 @@ $conn = mysqli_connect($server_name, $username, $password, "COMP3540_kbehiels");
 
 
  }
-function get_env_by_name($env_name){
+function get_next_env_id(){
   global $conn;
-
-  $sql = "SELECT ENV_ID FROM ENVIRONMENT WHERE ENV_NAME = ".$env_name;
+  $sql = "SELECT MAX(ENV_ID) FROM ENVIRONMENT;";
 
   $result = mysqli_query($conn, $sql);
 
-  return mysqli_fetch_row($result)[0];
+  $current_id = mysqli_fetch_row($result)[0];
+
+  if($result){
+    echo "Current id is ". $current_id;
+  }
+  else{
+    echo "damnit";
+  }
+
+  return $current_id;
 }
 
 // This function is mostly borrowed from w8_seminar with few changes.

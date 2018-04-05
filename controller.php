@@ -34,7 +34,7 @@ if(isset($_POST['AUTH_TYPE'])){
 
 
 
-if(isset($_POST['package_select']) && isset($POST['env_title']) && isset($_POST['env_description'])){
+if(isset($_POST['package_select']) && isset($_POST['env_title']) && isset($_POST['env_description'])){
   echo "sweet";
   post_new_env($_POST['package_select'], $_POST['env_title'], $_POST['env_description']);
 }
