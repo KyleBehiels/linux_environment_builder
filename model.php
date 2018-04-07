@@ -29,6 +29,86 @@ $conn = mysqli_connect($server_name, $username, $password, "COMP3540_kbehiels");
 
 
  }
+
+function get_forum_post_array(){
+    global $conn;
+
+    $sql = "SELECT E.ENV_NAME, E.ENV_ID, U.USER_ID, U.USERNAME, F.POST_ID, F.DESCRIPTION, F.TIMESTAMP
+                FROM ENVIRONMENT E JOIN FORUM_POST F
+                    ON (E.ENV_ID = F.ENV_ID)
+                JOIN USERS U
+                    ON (U.USER_ID = F.USER_ID)";
+
+    $result = mysqli_query($conn, $sql);
+    $forum_array = [];
+
+    /*
+    0 = ENV_TITLE
+    1 = ENV_ID
+    2 = USER_ID
+    3 = USER_NAME
+    4 = POST_ID
+    5 = DESCRIPTION
+    6 = TIMESTAMP
+    7 = PACKAGE ARRAY
+    8 = INSTALL COMMAND
+    9 = COMMENT ARRAY
+    */
+
+
+    // 0 = title 1 = envid 2 = userid 3 = username 4 = postid 5= description 6 = timestamp 7 = packagelist 8 = installcommand 9 = comments
+    $i = 0;
+    while($row = mysqli_fetch_row($result)){
+        $forum_array[$i][0] = $row[0];
+        $forum_array[$i][1] = $row[1];
+        $forum_array[$i][2] = $row[2];
+        $forum_array[$i][3] = $row[3];
+        $forum_array[$i][4] = $row[4];
+        $forum_array[$i][5] = $row[5];
+        $forum_array[$i][6] = $row[6];
+        $pack_sql = "SELECT P.PACKAGE_ID, P.PACKAGE_NAME, P.PACKAGE_COMMAND, P.PACKAGE_DESCRIPTION
+      	          FROM PACKAGE P JOIN PACKAGE_ENV_RELATION PE
+      	          ON (P.PACKAGE_ID = PE.PACKAGE_ID)
+      	          WHERE PE.ENV_ID = " . $forum_array[$i][1];
+        $pack_result = mysqli_query($conn, $pack_sql);
+        $package_arr = [];
+        $x = 0;
+        $install_command = 'sudo apt-get install';
+        while ($row = mysqli_fetch_row($pack_result)) {
+          $package_arr[$x] = $row;
+          $p_command = explode(",",$row[2]);
+          if($p_command[1] == "pm"){
+            // Uses package manager
+            $install_command = $install_command . " " . $p_command[0];
+          }
+          $x++;
+        }
+
+        $forum_array[$i][7] = $package_arr;
+        $forum_array[$i][8] = $install_command;
+
+
+        $comm_sql = "SELECT U.USERNAME, C.COMMENT_CONTENT, C.TIMESTAMP
+                        FROM USERS U JOIN FORUM_COMMENT C
+                            ON (U.USER_ID = C.USER_ID)
+                        JOIN FORUM_POST P
+                            ON (P.POST_ID = C.POST_ID)
+                        WHERE P.POST_ID = ".$forum_array[$i][4];
+        $comm_result = mysqli_query($conn, $comm_sql);
+        $comm_arr = [];
+        if($comm_result !== false){
+            $z = 0;
+            while ($row = mysqli_fetch_row($comm_result)) {
+                $comm_arr[$z++] = $row;
+            }
+        }
+        $forum_array[$i][9] = $comm_arr;
+        $i++;
+    }
+    return $forum_array;
+}
+
+
 function get_next_env_id(){
   global $conn;
   $sql = "SELECT MAX(ENV_ID) FROM ENVIRONMENT;";

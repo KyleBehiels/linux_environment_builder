@@ -39,6 +39,83 @@ if(isset($_POST['package_select']) && isset($_POST['env_title']) && isset($_POST
   post_new_env($_POST['package_select'], $_POST['env_title'], $_POST['env_description']);
 }
 
+function list_forum_posts(){
+
+    /*
+    $forumPostArray is a 2D array w/ D1 being the forum post and d2 being
+    the attribute of the post. Some are arrays so kind of 3D
+    ======================================================================
+    Properties
+    ----------------------------------------------------------------------
+    0 = ENV_TITLE
+    1 = ENV_ID
+    2 = USER_ID
+    3 = USER_NAME
+    4 = POST_ID
+    5 = DESCRIPTION
+    6 = TIMESTAMP
+    7 = PACKAGE ARRAY | 0=ID 1=NAME 2=COMMAND 3=DESCRIPTION
+    8 = INSTALL COMMAND
+    9 = COMMENT ARRAY | 0=NAME 1=COMMENT 2=TIMESTAMP
+    */
+
+    $forumPostArray = get_forum_post_array();
+    //  Returnable will be the html formatted forum post
+    $returnable = '';
+    $i = 0;
+    // var_dump($forumPostArray);
+    foreach($forumPostArray as $post) {
+
+        $packages = '';
+
+        foreach ($post[7] as $package) {
+          $packages = $packages . '<tr><td>'.$package[1].'</td><td  class="hide_on_mobile">'.$package[3].'</td></tr>';
+        }
+
+        $comments = '';
+        foreach ($post[9] as $comment) {
+            $comments = $comments . '<span>'. $comment[0]. ": ". $comment[1] .'</span><br>';
+        }
+
+        $returnable = $returnable . '
+        <div class="forum_post">
+            <div class="text-center">
+                <h3>'. $post[0] .' | <button class="btn btn-primary">Show script</button></h3>
+            </div>
+            <hr>
+            <div class="">
+                <p>'. $post[5] .'</p>
+            </div>
+            <hr>
+            <div class="environment_details">
+                <h4>Program List</h4>
+                <table class="table">
+                    <tr>
+                        <th>Package Name</th>
+                        <th class="hide_on_mobile">Description</th>
+                    </tr>
+                    '. $packages .'
+                </table>
+            </div>
+            <hr>
+            <form action="controller.php" method="post">
+                <div class="input-group col-sm-12">
+                    <input class="form-control" type="text" name="comment_text" value="" placeholder="Comment...">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary" name="button">Add Comment</button>
+                    </div>
+                </div>
+            </form>
+            <div class="comments">
+                '. $comments .'
+            </div>
+        </div>
+        ';
+        $i++;
+    }
+    return $returnable;
+
+}
 
 function list_environments($username){
     $envArray = get_env_array($username);
