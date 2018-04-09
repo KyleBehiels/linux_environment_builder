@@ -17,6 +17,14 @@ header('Access-Control-Allow-Origin: *');
 
 require("./model.php");
 
+if(isset($_POST['comment_text']) && isset($_POST['forum_post_id'])){
+  add_comment($_POST['comment_text'], $_POST['forum_post_id']);
+  echo "comment text and forum post are set";
+  include('./Pages/forum.php');
+  exit();
+}
+
+
 
 //Handle AUTH related posts
 
@@ -58,7 +66,6 @@ function list_forum_posts(){
     8 = INSTALL COMMAND
     9 = COMMENT ARRAY | 0=NAME 1=COMMENT 2=TIMESTAMP
     */
-
     $forumPostArray = get_forum_post_array();
     //  Returnable will be the html formatted forum post
     $returnable = '';
@@ -104,9 +111,11 @@ function list_forum_posts(){
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-primary" name="button">Add Comment</button>
                     </div>
+                    <input type="hidden" name="forum_post_id" value="'.$post[4].'"
                 </div>
             </form>
-            <div class="comments">
+            <hr>
+            <div class="comments col-sm-12">
                 '. $comments .'
             </div>
         </div>

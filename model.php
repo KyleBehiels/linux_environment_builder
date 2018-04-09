@@ -93,7 +93,8 @@ function get_forum_post_array(){
                             ON (U.USER_ID = C.USER_ID)
                         JOIN FORUM_POST P
                             ON (P.POST_ID = C.POST_ID)
-                        WHERE P.POST_ID = ".$forum_array[$i][4];
+                        WHERE P.POST_ID = ".$forum_array[$i][4]."
+                        ORDER BY C.FORUM_COMMENT_ID";
         $comm_result = mysqli_query($conn, $comm_sql);
         $comm_arr = [];
         if($comm_result !== false){
@@ -274,6 +275,24 @@ function get_all_packages(){
 
 }
 
+
+function add_comment($comment_content, $forum_post){
+  global $conn;
+
+  $user_id = $_COOKIE['USER_ID_COOK'];
+  $date = new DateTime();
+  $timestamp = $date->getTimestamp();
+
+  echo "POSTING: $forum_post , $comment_content , $user_id , $timestamp";
+
+  $sql = "INSERT INTO FORUM_COMMENT(POST_ID, USER_ID, COMMENT_CONTENT, TIMESTAMP)
+            VALUES($forum_post, $user_id, '$comment_content', $timestamp)";
+  $result = mysqli_query($conn, $sql);
+
+
+  $_POST['comment_text'] = NULL;
+  $_POST['forum_post_id'] = NULL;
+}
 
 function signup(){
     if($_POST['PASSWORD'] == $_POST['PASS_CONF']){

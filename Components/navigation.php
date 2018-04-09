@@ -32,7 +32,12 @@
         <a id="profile_link" onclick="nav_post('profile')" class="nav-link" href="#">Profile</a>
       </li>
       <li id="forum" class="nav-item">
-        <a id="logout_btn" onclick="nav_post('logout')" class="nav-link" href="#">Log Out</a>
+        <?php
+          if(isset($_COOKIE['USER_ID_COOK'])){
+            echo '<a id="logout_btn" onclick="nav_post(\'logout\')" class="nav-link" href="#">Log Out</a>';
+          }
+         ?>
+
       </li>
     </ul>
   </div>

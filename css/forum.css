@@ -3,7 +3,7 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : 20-Mar-2018, 10:57:52 AM
     Author     : kyle
 
@@ -21,4 +21,11 @@ White-blue: #D9FAFF
 .forum_post{
     border: 1px solid #00204A;
     padding: 20px;
+}
+
+#add_post_form{
+  border: 1px solid #00204A;
+  border-radius: 15px;
+  padding:20px;
+  margin: 10px;
 }
